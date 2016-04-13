@@ -2,19 +2,13 @@ require 'date'
 
 module Generate
   def index_flat_data(nums:)
-    Mapper.bulk do |client|
-      client.bulk(
-        body: data(nums),
-        index: Client.index,
-        type: "room_date"
-      )
-    end
+    Mapper.bulk(data(nums))
   end
 
   private
 
   def data(nums)
-    (0..nums).inject ([]) do |r, x|
+    (0...nums).inject ([]) do |r, x|
       d =
         {
           index:

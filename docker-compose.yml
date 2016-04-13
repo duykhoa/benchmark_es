@@ -1,6 +1,6 @@
 version: '2'
 services:
-  web:
+  web: &webimage
     build: .
     volumes:
       - /home/docker/docker_dir/benchmark_es_bundle:/bundle
@@ -18,7 +18,3 @@ services:
     ports:
       - "9200:9200"
     command: elasticsearch -Des.network.bind_host=0.0.0.0
-
-  bundle:
-    image: benchmarkestype_web
-    command: bundle install --retry 10 --jobs 20
