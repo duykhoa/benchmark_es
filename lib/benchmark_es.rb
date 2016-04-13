@@ -9,4 +9,4 @@ module BenchmarkEs
   extend Generate
 end
 
-BenchmarkEs.index_flat_data(nums: 500)
+BenchmarkEs.index_flat_data(nums: 50000)
