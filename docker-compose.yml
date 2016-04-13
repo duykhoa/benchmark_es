@@ -5,6 +5,8 @@ services:
     volumes:
       - /home/docker/docker_dir/benchmark_es_bundle:/bundle
       - .:/myapp
+    links:
+      - elasticsearch
     environment:
       - ES_URL=elasticsearch:9200
       - ES_INDEX=benchmark_es
@@ -18,6 +20,5 @@ services:
     command: elasticsearch -Des.network.bind_host=0.0.0.0
 
   bundle:
-    extends:
-      service: web
+    image: benchmarkestype_web
     command: bundle install --retry 10 --jobs 20
