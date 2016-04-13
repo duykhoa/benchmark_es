@@ -1,7 +1,7 @@
 module Update
   YEARS = 365
 
-  def update_info(nums:)
+  def update_info(ids:)
     Mapper.bulk(update_data(nums))
   end
 

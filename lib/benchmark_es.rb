@@ -13,6 +13,12 @@ module BenchmarkEs
   extend AllIds
 end
 
-#BenchmarkEs.index_flat_data(nums: 500)
-#BenchmarkEs.update_info(nums: 500)
+printf "Start index %s \n", Time.now
+BenchmarkEs.index_flat_data(nums: 50)
+printf "Finish index %s \n-----\n", Time.now
+
+printf "Start list all ids %s \n", Time.now
 puts BenchmarkEs.all_ids(batch_size: 5000)
+printf "Finish list all ids %s \n", Time.now
+
+#BenchmarkEs.update_info(nums: 50)

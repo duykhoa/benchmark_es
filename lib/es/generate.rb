@@ -4,25 +4,32 @@ module Generate
   YEARS = 365
 
   def index_flat_data(nums:)
-    Mapper.bulk(index_data(nums))
+    (0...nums).each_slice(100) do |slice|
+      data = (slice.first .. slice.last).inject([]) do |r, x|
+        r.concat index_data(x)
+      end
+
+      Mapper.bulk(data)
+    end
   end
 
   private
 
-  def index_data(nums)
-    (0...nums).inject ([]) do |r, x|
-      YEARS.times do |y|
-        d =
+  def index_data(x)
+    r = []
+
+    YEARS.times do |y|
+      d =
+        {
+          index:
           {
-            index:
-            {
-              data: sample_data(x, nil, Date.today + y)
-            }
+            data: sample_data(x, nil, Date.today + y)
           }
-        r << d
-      end
-      r
+        }
+      r << d
     end
+
+    r
   end
 
   def sample_data(room_id, unit_id, date)
