@@ -1,5 +1,5 @@
 module AllIds
-  def all_ids(batch_size:)
+  def all_ids(batch_size: 5000)
     result = []
 
     r = Client.instance.search(

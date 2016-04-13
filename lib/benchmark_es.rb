@@ -15,4 +15,4 @@ end
 
 #BenchmarkEs.index_flat_data(nums: 500)
 #BenchmarkEs.update_info(nums: 500)
-puts BenchmarkEs.all_ids.inspect
+puts BenchmarkEs.all_ids(batch_size: 5000)
