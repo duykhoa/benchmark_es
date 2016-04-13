@@ -1,9 +1,13 @@
 FROM ruby:2.3
 
 ENV HOMEDIR /myapp
-ENV ES_URL elasticsearch:9200
-ENV ES_INDEX benchmark_es
+ENV BUNDLE_PATH=/bundle
 
 RUN useradd kevin --no-create-home
+RUN  \
+  mkdir $BUNDLE_PATH && \
+  chown -R kevin:kevin $BUNDLE_PATH
 
-WORKDIR HOMEDIR
+USER kevin
+
+WORKDIR $HOMEDIR

@@ -1,0 +1,23 @@
+version: '2'
+services:
+  web:
+    build: .
+    volumes:
+      - /home/docker/docker_dir/benchmark_es_bundle:/bundle
+      - .:/myapp
+    environment:
+      - ES_URL=elasticsearch:9200
+      - ES_INDEX=benchmark_es
+
+  elasticsearch:
+    image: elasticsearch:2.2.0
+    expose:
+      - "9200"
+    ports:
+      - "9200:9200"
+    command: elasticsearch -Des.network.bind_host=0.0.0.0
+
+  bundle:
+    extends:
+      service: web
+    command: bundle install --retry 10 --jobs 20
