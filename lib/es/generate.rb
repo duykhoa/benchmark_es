@@ -1,22 +1,27 @@
 require 'date'
 
 module Generate
+  YEARS = 365
+
   def index_flat_data(nums:)
-    Mapper.bulk(data(nums))
+    Mapper.bulk(index_data(nums))
   end
 
   private
 
-  def data(nums)
+  def index_data(nums)
     (0...nums).inject ([]) do |r, x|
-      d =
-        {
-          index:
+      YEARS.times do |y|
+        d =
           {
-            data: sample_data(x, nil, Date.today + x)
+            index:
+            {
+              data: sample_data(x, nil, Date.today + y)
+            }
           }
-        }
-      r << d
+        r << d
+      end
+      r
     end
   end
 
