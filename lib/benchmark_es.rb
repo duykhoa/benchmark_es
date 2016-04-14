@@ -3,30 +3,30 @@ require 'bundler/setup'
 require 'elasticsearch'
 require_relative 'es/client'
 require_relative 'es/mapper'
-require_relative 'es/generate'
+require_relative 'es/index_flat_data'
 require_relative 'es/actions/update'
 require_relative 'es/actions/all_ids'
 require_relative 'es/actions/searcher'
 
 module BenchmarkEs
-  extend Generate
+  extend IndexFlatData
   extend Update
   extend AllIds
   extend Searcher
 end
 
-def main
-  #printf "[%s] Start index\n", Time.now
-  #BenchmarkEs.index_flat_data(nums: 50)
-  #printf "[%s] Finish index\n-----\n", Time.now
+def flat
+  printf "[%s] Start indexing\n", Time.now
+  BenchmarkEs.index_flat(nums: 50)
+  printf "[%s] Finish indexing\n-----\n", Time.now
 
-  #printf "[%s] Start list all ids \n", Time.now
-  #ids = BenchmarkEs.all_ids(batch_size: 5000)
-  #printf "[%s] Finish list all ids \t Total %d \n-----\n", Time.now, ids.count
+  printf "[%s] Start list all ids \n", Time.now
+  ids = BenchmarkEs.all_ids(batch_size: 5000)
+  printf "[%s] Finish list all ids \t Total %d \n-----\n", Time.now, ids.count
 
-  #printf "[%s] Start updating \n", Time.now
-  #BenchmarkEs.update_info(ids: ids, batch_size: 5000)
-  #printf "[%s] Finish updating\n-----\n", Time.now
+  printf "[%s] Start updating \n", Time.now
+  BenchmarkEs.update_info(ids: ids, batch_size: 5000)
+  printf "[%s] Finish updating\n-----\n", Time.now
 
   printf "[%s] Start do 30 times searching for 10.000 docs\n", Time.now
   30.times do |i|
@@ -40,4 +40,7 @@ def main
   printf "[%s] Finish searching \n-----\n", Time.now
 end
 
-main
+def nested
+end
+
+flat

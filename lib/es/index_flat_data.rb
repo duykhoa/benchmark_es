@@ -1,12 +1,12 @@
 require 'date'
 
-module Generate
+module IndexFlatData
   YEARS = 365
 
-  def index_flat_data(nums:)
+  def index_flat(nums:)
     (0...nums).each_slice(100) do |slice|
       data = (slice.first .. slice.last).inject([]) do |r, x|
-        r.concat index_data(x)
+        r.concat index_flat_data(x)
       end
 
       Mapper.bulk(data)
@@ -15,7 +15,7 @@ module Generate
 
   private
 
-  def index_data(x)
+  def index_flat_data(x)
     r = []
 
     YEARS.times do |y|
@@ -23,7 +23,7 @@ module Generate
         {
           index:
           {
-            data: sample_data(x, nil, Date.today + y)
+            data: sample_flat_data(x, nil, Date.today + y)
           }
         }
       r << d
@@ -32,7 +32,7 @@ module Generate
     r
   end
 
-  def sample_data(room_id, unit_id, date)
+  def sample_flat_data(room_id, unit_id, date)
     {
       room_id: room_id,
       unit_id: unit_id,
