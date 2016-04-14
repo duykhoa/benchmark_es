@@ -4,12 +4,14 @@ require 'elasticsearch'
 require_relative 'es/client'
 require_relative 'es/mapper'
 require_relative 'es/index_flat_data'
+require_relative 'es/index_nested_data'
 require_relative 'es/actions/update'
 require_relative 'es/actions/all_ids'
 require_relative 'es/actions/searcher'
 
 module BenchmarkEs
   extend IndexFlatData
+  extend IndexNestedData
   extend Update
   extend AllIds
   extend Searcher
@@ -17,7 +19,7 @@ end
 
 def flat
   printf "[%s] Start indexing\n", Time.now
-  BenchmarkEs.index_flat(nums: 50)
+  BenchmarkEs.index_flat(nums: 100)
   printf "[%s] Finish indexing\n-----\n", Time.now
 
   printf "[%s] Start list all ids \n", Time.now
@@ -41,6 +43,7 @@ def flat
 end
 
 def nested
+  BenchmarkEs.index_nested(nums: 100)
 end
+nested
 
-flat

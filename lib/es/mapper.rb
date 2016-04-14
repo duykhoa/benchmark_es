@@ -1,10 +1,10 @@
 module Mapper
-  def self.bulk(data, batch_size=1000)
+  def self.bulk(data, batch_size=10_000, type="room_date")
     data.each_slice(batch_size) do |slice|
       Client.instance.bulk(
         body: slice,
         index: Client.index,
-        type: "room_date"
+        type: type
       )
     end
   end
