@@ -1,8 +1,8 @@
 module Update
-  def update_info(ids:, batch_size:)
+  def update_info(ids:, batch_size: 10_000, type: "room_date")
     ids.each_slice(batch_size) do |slice|
       printf "[%s] Finish update %s - %s\t Count: %d\n", Time.now, slice.first, slice.last, slice.count
-      Mapper.bulk(update_data(slice))
+      Mapper.bulk(update_data(slice), batch_size, type)
     end
   end
 
@@ -20,7 +20,7 @@ module Update
         _id: id,
         data: {
           doc: {
-            max_guest: 11
+            attr: 999
           }
         }
       }

@@ -61,6 +61,7 @@ module IndexFlatData
       att17: 1,
       att18: 1,
       att19: 1,
+      attr: 0,
       dates: date.strftime("%Y-%m-%d"),
       daily_price: 100,
       daily_confidence: 1,

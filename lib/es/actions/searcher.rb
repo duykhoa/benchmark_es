@@ -1,8 +1,8 @@
 module Searcher
-  def search(ids)
+  def search(ids, type="room_date")
     Client.instance.search(
       index: Client.index,
-      type: "room_date",
+      type: type,
       size: 10_000,
       body: {
         query: {
@@ -15,7 +15,7 @@ module Searcher
               },
               {
                 range: {
-                  max_guest: {
+                  attr: {
                     gte: 0
                   }
                 }

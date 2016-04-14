@@ -48,6 +48,7 @@ module IndexNestedData
             att21: 1,
             att22: 1,
             att23: 1,
+            attr: 0
           }
         }
       }
@@ -81,7 +82,8 @@ module IndexNestedData
       weekly_price: 100,
       weekly_confidence: 2,
       monthly_price: 100,
-      monthly_confidence: 3
+      monthly_confidence: 3,
+      attr: 0
     }
   end
 end

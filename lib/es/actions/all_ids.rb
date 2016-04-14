@@ -1,5 +1,5 @@
 module AllIds
-  def all_ids(batch_size: 5000, type: 'room_date')
+  def all_ids(batch_size: 10_000, type: 'room_date')
     result = []
 
     r = Client.instance.search(
