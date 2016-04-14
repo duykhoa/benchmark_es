@@ -45,5 +45,5 @@ end
 def nested
   BenchmarkEs.index_nested(nums: 100)
 end
-nested
 
+nested

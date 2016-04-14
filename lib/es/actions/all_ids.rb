@@ -1,10 +1,11 @@
 module AllIds
-  def all_ids(batch_size: 5000)
+  def all_ids(batch_size: 5000, type: 'room_date')
     result = []
 
     r = Client.instance.search(
       index: Client.index,
       scroll: '5m',
+      type: type,
       size: batch_size,
       search_type: 'scan'
     )
