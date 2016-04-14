@@ -18,9 +18,14 @@ module BenchmarkEs
 end
 
 def flat(nums = 100)
+  printf "==================== NESTED BENCHMARK ===================\n"
+  printf ">>>> nums %d\t total %d\n", nums, nums * 365
+
   printf "[%s] Start indexing\n", Time.now
   BenchmarkEs.index_flat(nums: nums)
   printf "[%s] Finish indexing\n-----\n", Time.now
+
+  Client.instance.indices.refresh
 
   printf "[%s] Start list all ids \n", Time.now
   ids = BenchmarkEs.all_ids()
@@ -29,6 +34,8 @@ def flat(nums = 100)
   printf "[%s] Start updating \n", Time.now
   BenchmarkEs.update_info(ids: ids)
   printf "[%s] Finish updating\n-----\n", Time.now
+
+  Client.instance.indices.refresh
 
   printf "[%s] Start do 100 times searching for 10.000 docs\n", Time.now
   100.times do |i|
@@ -39,13 +46,20 @@ def flat(nums = 100)
     printf "\t* Loop %d\t Total %s\t Finish in %f \n", i, result["hits"]["hits"].count, etime - stime
   end
 
+  Client.instance.indices.refresh
+
   printf "[%s] Finish searching \n-----\n", Time.now
 end
 
 def nested(nums = 100)
+  printf "==================== NESTED BENCHMARK ===================\n"
+  printf ">>>> nums %d\t total %d\n", nums, nums * 365
+
   printf "[%s] Start indexing\n", Time.now
   BenchmarkEs.index_nested(nums: nums)
   printf "[%s] Finish indexing\n-----\n", Time.now
+
+  Client.instance.indices.refresh
 
   printf "[%s] Start list all ids \n", Time.now
   ids = BenchmarkEs.all_ids(type: "room")
@@ -55,6 +69,8 @@ def nested(nums = 100)
   BenchmarkEs.update_info(ids: ids, type: "room")
   printf "[%s] Finish updating rooms\n-----\n", Time.now
 
+  Client.instance.indices.refresh
+
   printf "[%s] Start list all date_ids \n", Time.now
   date_ids = BenchmarkEs.all_ids(type: "room_date")
   printf "[%s] Finish list all date_ids \t Total %d \n-----\n", Time.now, date_ids.count
@@ -62,6 +78,8 @@ def nested(nums = 100)
   printf "[%s] Start updating dates \n", Time.now
   BenchmarkEs.update_info(ids: date_ids, type: "room_date")
   printf "[%s] Finish updating\n-----\n", Time.now
+
+  Client.instance.indices.refresh
 
   printf "[%s] Start do 100 times searching %d room\n", Time.now, nums
   100.times do |i|
@@ -84,5 +102,5 @@ def nested(nums = 100)
   printf "[%s] Finish searching \n-----\n", Time.now
 end
 
-#flat(100)
+flat(100)
 nested(100)
